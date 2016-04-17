@@ -9,15 +9,15 @@
 #This function will create the special matrix object that can catche its inverse!
 makeCacheMatrix <- function(x = matrix()) {
   I = NULL
-  set<-function(y){
+  set<-function(y){  # sets the matrix set you passed
     x<<-y
     I<<-NULL
   }
-  get<-function() x
-  setInverse<-function(inverse){
+  get<-function() x  # returns the matrix 
+  setInverse<-function(inverse){ #used for setting the inverse once computed!
     I<<-inverse
   }
-  getInverse<-function() I
+  getInverse<-function() I    # For getting the inverse of the matrix
   
   list(get = get, set = set,getInverse=getInverse,setInverse = setInverse)
   
@@ -31,14 +31,14 @@ makeCacheMatrix <- function(x = matrix()) {
 #been computed for the same matrix, if not it will compute the inverse for you!
 cacheSolve <- function(x, ...) {
   ## Return a matrix that is the inverse of 'x'
-  inv<-x$getInverse()
+  inv<-x$getInverse()       # calling the gerInverse() method and checking cache
   if(!is.null(inv)){
-    message("getting inverser from catche")
+    message("getting inverser from catche")   # if result is not null it will used with out computing
     inv
   }
-  matr<-x$get()
-  inv<-solve(matr,...)
-  x$setInverse(inv)
-  inv
+  matr<-x$get()   # getting the matrix
+  inv<-solve(matr,...)   # Computing the inverse of the matrix
+  x$setInverse(inv)  # then setting the value to cache
+  inv  # finally returning the inverse!
   
 }
